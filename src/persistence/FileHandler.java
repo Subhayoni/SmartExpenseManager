@@ -28,4 +28,27 @@ public class FileHandler {
             System.out.println("Error saving data: " + e.getMessage());
         }
     }
+
+    @SuppressWarnings("unchecked")
+    public static List<Transaction> loadData() {
+        File f = new File(FILE_PATH);
+
+        // if no file yet just return empty list, first run
+        if (!f.exists()) {
+            System.out.println("DEBUG: no saved data found, starting fresh");
+            return new ArrayList<>();
+        }
+
+        try (ObjectInputStream ois = new ObjectInputStream(
+                new FileInputStream(FILE_PATH))) {
+
+            List<Transaction> loaded = (List<Transaction>) ois.readObject();
+            System.out.println("DEBUG: loaded " + loaded.size() + " records");
+            return loaded;
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading data: " + e.getMessage());
+            return new ArrayList<>(); // don't crash, just return empty
+        }
+    }
 }
