@@ -49,4 +49,35 @@ public class ExpenseManager {
         }
         return bal;
     }
+    // filter by category — case insensitive because users never type it right
+    public List<Transaction> filterByCategory(String cat) {
+        List<Transaction> result = new ArrayList<>();
+        for (Transaction t : txnList) {
+            if (t.getCategory().equalsIgnoreCase(cat)) {
+                result.add(t);
+            }
+        }
+        System.out.println("DEBUG: found " + result.size() + " for category: " + cat);
+        return result;
+    }
+
+    // show only expenses or only income
+    public List<Transaction> filterByType(String type) {
+        List<Transaction> result = new ArrayList<>();
+        for (Transaction t : txnList) {
+            if (t.getType().equalsIgnoreCase(type)) {
+                result.add(t);
+            }
+        }
+        return result;
+    }
+
+    // total spending in a given category
+    public double totalByCategory(String cat) {
+        double total = 0;
+        for (Transaction t : filterByCategory(cat)) {
+            total += t.getAmount();
+        }
+        return total;
+    }
 }
