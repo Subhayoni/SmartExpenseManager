@@ -1,8 +1,11 @@
-// entry point, will build this out later
+import controller.ExpenseManager;
+import view.MenuView;
 
 public class Main {
     public static void main(String[] args) {
         System.out.println("Starting Expense Manager...");
-        // TODO: wire up the menu here
+        ExpenseManager manager = new ExpenseManager();
+        MenuView view = new MenuView(manager);
+        view.showMenu();
     }
 }
